@@ -36,14 +36,28 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const { width, height } = useWindowDimensions();
 
   const isSmallScreen = width < 370 || height < 750;
+  const isAndroid = Platform.OS === 'android';
 
-  const bottomOffset =
-    Platform.OS === 'android'
-      ? 30
-      : Math.max(20, insets.bottom > 0 ? insets.bottom : 20);
+  const bottomOffset = isAndroid
+    ? 50
+    : Math.max(20, insets.bottom > 0 ? insets.bottom : 20);
 
-  const barHeight = isSmallScreen ? 76 : 86;
-  const iconSize = isSmallScreen ? 22 : 27;
+  const barHeight = isAndroid
+    ? isSmallScreen
+      ? 66
+      : 76
+    : isSmallScreen
+      ? 76
+      : 86;
+
+  const iconSize = isAndroid
+    ? isSmallScreen
+      ? 20
+      : 25
+    : isSmallScreen
+      ? 22
+      : 27;
+
   const horizontalPadding = isSmallScreen ? 14 : 18;
   const barWidth = Math.min(width - 24, 690);
 
