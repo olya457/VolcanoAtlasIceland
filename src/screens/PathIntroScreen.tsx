@@ -75,10 +75,7 @@ const isVerySmallScreen = height <= 640;
 
 const CARD_W = Math.min(width - 56, isVerySmallScreen ? 278 : 292);
 const TOP_IMAGE_W = Math.min(width * (isVerySmallScreen ? 0.72 : 0.78), isVerySmallScreen ? 255 : 300);
-const TOP_IMAGE_H = Math.min(
-  height * (isVerySmallScreen ? 0.26 : isSmallScreen ? 0.29 : 0.34),
-  isVerySmallScreen ? 195 : 270
-);
+const TOP_IMAGE_H = Math.min(height * (isVerySmallScreen ? 0.26 : isSmallScreen ? 0.29 : 0.34), isVerySmallScreen ? 195 : 270);
 
 export default function PathIntroScreen({ navigation }: Props) {
   const insets = useSafeAreaInsets();
@@ -176,7 +173,7 @@ export default function PathIntroScreen({ navigation }: Props) {
             {
               paddingHorizontal: isVerySmallScreen ? 18 : 22,
               paddingTop: isVerySmallScreen ? 0 : 6,
-              paddingBottom: 150,
+              paddingBottom: (isVerySmallScreen ? 18 : 34) + 20,
             },
           ]}
         >
@@ -188,7 +185,10 @@ export default function PathIntroScreen({ navigation }: Props) {
                 height: TOP_IMAGE_H,
                 marginTop: isVerySmallScreen ? 0 : 4,
                 opacity: fadeAnim,
-                transform: [{ translateY: imageFloatAnim }, { scale: scaleAnim }],
+                transform: [
+                  { translateY: imageFloatAnim },
+                  { scale: scaleAnim },
+                ],
               },
             ]}
           >
@@ -259,41 +259,39 @@ export default function PathIntroScreen({ navigation }: Props) {
               </Text>
             </View>
           </Animated.View>
-        </View>
 
-        <Animated.View
-          style={[
-            styles.footer,
-            {
-              left: isVerySmallScreen ? 18 : 22,
-              right: isVerySmallScreen ? 18 : 22,
-              bottom: insets.bottom - 50,
-              opacity: fadeAnim,
-              transform: [{ translateY: moveAnim }],
-            },
-          ]}
-        >
-          <Pressable
+          <Animated.View
             style={[
-              styles.primaryButton,
+              styles.footer,
               {
-                minWidth: isVerySmallScreen ? 122 : 128,
-                height: isVerySmallScreen ? 40 : 42,
-                paddingHorizontal: isVerySmallScreen ? 18 : 22,
+                marginTop: isVerySmallScreen ? 12 : 18,
+                opacity: fadeAnim,
+                transform: [{ translateY: moveAnim }],
               },
             ]}
-            onPress={handleNext}
           >
-            <Text
+            <Pressable
               style={[
-                styles.primaryButtonText,
-                { fontSize: isVerySmallScreen ? 13 : 14 },
+                styles.primaryButton,
+                {
+                  minWidth: isVerySmallScreen ? 122 : 128,
+                  height: isVerySmallScreen ? 40 : 42,
+                  paddingHorizontal: isVerySmallScreen ? 18 : 22,
+                },
               ]}
+              onPress={handleNext}
             >
-              {currentSlide.buttonLabel}
-            </Text>
-          </Pressable>
-        </Animated.View>
+              <Text
+                style={[
+                  styles.primaryButtonText,
+                  { fontSize: isVerySmallScreen ? 13 : 14 },
+                ]}
+              >
+                {currentSlide.buttonLabel}
+              </Text>
+            </Pressable>
+          </Animated.View>
+        </View>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -389,7 +387,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   footer: {
-    position: 'absolute',
+    width: '100%',
     alignItems: 'center',
   },
   primaryButton: {
