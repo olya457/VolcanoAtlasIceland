@@ -1,4 +1,4 @@
-package com.volcano.atlas.iceland
+package com.exploreicelandvolcanoes
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

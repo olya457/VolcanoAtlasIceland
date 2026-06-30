@@ -1,4 +1,4 @@
-package com.volcano.atlas.iceland
+package com.exploreicelandvolcanoes
 
 import android.app.Application
 import com.facebook.react.PackageList
